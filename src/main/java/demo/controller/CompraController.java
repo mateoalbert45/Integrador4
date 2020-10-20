@@ -1,0 +1,108 @@
+package demo.controller;
+
+import java.util.ArrayList;
+import java.util.List;
+
+import javax.transaction.Transactional;
+
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Qualifier;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
+import org.springframework.web.bind.annotation.DeleteMapping;
+import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.PutMapping;
+import org.springframework.web.bind.annotation.RequestBody;
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RestController;
+
+import demo.model.Cliente;
+import demo.model.Compra;
+import demo.model.Producto;
+import demo.model.ReporteGastosCliente;
+import demo.model.ReporteVentasPorDia;
+import demo.model.Stock;
+import demo.repository.CompraRepository;
+
+@RestController
+@RequestMapping("compra")
+public class CompraController {
+	@Qualifier("compraRepository")
+	@Autowired
+	private final CompraRepository repository;
+
+	public CompraController(@Qualifier("compraRepository") CompraRepository repository) {
+		this.repository = repository;
+	}
+
+	@GetMapping("/getAll")
+	public Iterable<Compra> getCompras() {
+		return repository.findAll();
+	}
+
+	@PostMapping("/comprar/{id}")
+	public ResponseEntity newCompra(@RequestBody Compra c,@PathVariable Long id) {
+		for(Producto p: c.getProductos()) {
+			System.out.println("cantidad para producto"+ p.getNombre() + repository.ventasProducto(p.getId(),id));
+			if(repository.ventasProducto(p.getId(),id)>3)
+					return ResponseEntity.status(HttpStatus.NOT_FOUND).body("Limite de productos al dia superado");
+		}
+		repository.save(c);
+//		Cliente cliente = repository.recuperarCLiente(id);
+//		cliente.add(c);
+//		repository.save(cliente);
+		return ResponseEntity.status(HttpStatus.NOT_FOUND).body("Compra realizada");
+	}
+	
+	@PostMapping("/")
+	public Compra Comprar(@RequestBody Compra c, @PathVariable Long id) {
+		List<Compra> compras = repository.cantidadDeCompras(c.getFechaDeCompra(),id);
+		if(compras.size() > 0) {
+			
+		}
+		return repository.save(c);
+	}
+
+	@PutMapping("/update/{id}")
+	public Compra updateCompra(@RequestBody Compra c, @PathVariable Long id) {
+		return repository.findById(id).map(compra -> {
+			compra.setFechaDeCompra(c.getFechaDeCompra());
+			return repository.save(compra);
+		}).orElseGet(() -> {
+			c.setId(id);
+			return repository.save(c);
+		});
+	}
+
+	@DeleteMapping("/delete/{id}")
+	void deleteCompra(@PathVariable Long id) {
+		repository.deleteById(id);
+	}
+
+	@GetMapping("/getComprasPorDia")
+	public List<ReporteVentasPorDia> getComprasPorDia() {
+		boolean flag = false;
+		List<ReporteVentasPorDia> reportes = new ArrayList<>();
+		List<Compra> compras = repository.comprasOrdenFecha();
+		for (Compra c : compras) {
+			for (ReporteVentasPorDia r : reportes) {
+				if (r.getFecha().equals(c.getFechaDeCompra())) {
+					flag = true;
+					r.addCompra(c);
+				}
+			}
+			if (flag == false) {
+				ReporteVentasPorDia reporte = new ReporteVentasPorDia();
+				reporte.addCompra(c);
+				reporte.setFecha(c.getFechaDeCompra());
+				reportes.add(reporte);
+			} else {
+				flag = false;
+			}
+		}
+		return reportes;
+	}
+
+}
