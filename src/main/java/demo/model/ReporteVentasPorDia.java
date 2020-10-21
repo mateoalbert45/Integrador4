@@ -6,7 +6,7 @@ import java.util.List;
 
 public class ReporteVentasPorDia {
 
-	private Date fecha;
+	private String fecha;
 	
 	private List<Compra> compras;
 
@@ -15,11 +15,11 @@ public class ReporteVentasPorDia {
 		this.compras = new ArrayList<>();
 	}
 	
-	public Date getFecha() {
+	public String getFecha() {
 		return fecha;
 	}
 
-	public void setFecha(Date fecha) {
+	public void setFecha(String fecha) {
 		this.fecha = fecha;
 	}
 

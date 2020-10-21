@@ -15,7 +15,7 @@ public interface CompraRepository extends JpaRepository<Compra, Long> {
 	    public List<Compra>  comprasOrdenFecha();
 
 	@Query("select c.compras from Cliente c where id =: id and fechaDeCompra =: fechaCompra ")
-	public List<Compra> cantidadDeCompras(Date fechaCompra, Long id);
+	public List<Compra> cantidadDeCompras(String fechaCompra, Long id);
 	
 	@Query("select count(p.id) FROM Cliente cl join cl.compras c join c.productos p where p.id =:idProducto and cl.id =:idCliente group by p")
 	public int ventasProducto(Long idProducto,Long idCliente);

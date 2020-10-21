@@ -67,10 +67,11 @@ public class ProductoController {
 	                });
 	 }
 	 
-	@DeleteMapping("/delete/{id}")
-	 void deleteProducto(@PathVariable Long id) {
-	        repository.borrarStockProducto(id);
-	    }
+//	@DeleteMapping("/delete/{id}")
+//	 void deleteProducto(@PathVariable Long id) {
+//		repository.deleteById(id);
+//	       // repository.borrarStockProducto(id);
+//	    }
 	
 	 
 	 

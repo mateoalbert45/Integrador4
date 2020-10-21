@@ -32,6 +32,10 @@ public class Stock {
 		this.cantidad = cantidad;
 	}
     
+	
+	public void add(Producto p) {
+		producto = p;
+	}
     
     
 }

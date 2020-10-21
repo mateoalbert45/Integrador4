@@ -80,15 +80,18 @@ public class ClienteController {
 	    }
 	    
 	    
-		@PostMapping("/comprar/{id}")
-		public ResponseEntity compraCliente(@RequestBody Compra c,@PathVariable Long id) {
+		@PostMapping("/comprar/{idCliente}")
+		public ResponseEntity compraCliente(@RequestBody Compra  c,@PathVariable Long idCliente) {
+			
 			Long idCompra = c.getId();
-			Optional<Cliente> cliente = repository.findById(id);
+			Optional<Cliente> cliente = repository.findById(idCliente);
 			cliente.get().add(c);
 			repository.save(cliente.get());
 			for(Producto p: c.getProductos()) {
-				System.out.println("cantidad para producto"+ p.getNombre() + repository.ventasProducto(p.getId(),c.getFechaDeCompra(),id));
-				if(repository.ventasProducto(p.getId(),c.getFechaDeCompra(),id)>3) {
+				
+				
+				System.out.println("cantidad para producto"+ p.getNombre() + repository.ventasProducto(p.getId(),c.getFechaDeCompra(),idCliente));
+				if(repository.ventasProducto(p.getId(),c.getFechaDeCompra(),idCliente)>3) {
 						cliente.get().remove(c);
 						repository.save(cliente.get());
 						//LLAMA UN DELETECOMPRA DESDE JS

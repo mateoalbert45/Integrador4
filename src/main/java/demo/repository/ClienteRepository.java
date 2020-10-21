@@ -15,9 +15,9 @@ public interface ClienteRepository extends JpaRepository<Cliente, Long> {
 //	    public int  compraSegunCliente(Long id);
 	   
 		@Query("select count(p.id) FROM Cliente cl join cl.compras c join c.productos p where p.id =:idProducto and cl.id =:idCliente and c.fechaDeCompra =:fecha group by p")
-		public int ventasProducto(Long idProducto,Date fecha,Long idCliente);
+		public int ventasProducto(Long idProducto,String fecha,Long idCliente);
 		
 		
-		   @Query("delete FROM Compra c where c.id =:idCompra")
-		    public void eliminarCompra(long idCompra);
+		@Query("delete FROM Compra c where c.id =:idCompra")
+		public void eliminarCompra(long idCompra);
 }

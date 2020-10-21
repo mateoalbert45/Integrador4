@@ -1,0 +1,144 @@
+<!DOCTYPE html>
+<html lang="en" dir="ltr">
+<head>
+  <meta charset="utf-8">
+  <title>integrador 4- grupo 4</title>
+</head>
+<body style="background-color:black; color: white" >
+  <h1>integrador 4- grupo 4</h1>
+  <h1 style= "color:red">cambiar path </h1>
+  <div>
+    <h1>A - Add producto</h1>
+    <input type="number" placeholder="id" id="idAddProducto"style= "display:list-item">
+    <input type="text" placeholder="nombre" id="idAddNombre"style= "display:list-item">
+    <input type="number" placeholder="precio" id="idAddPrecio"style= "display:list-item">
+    <button type="button" id="submitPostProducto" >Aceptar</button>
+  </div>
+
+
+  <div >
+    <h1>A - Edit producto</h1>
+    <input type="number" placeholder="id" id="idPutProducto"style= "display:list-item">
+    <input type="text" placeholder="nombre" id="idPutNombre"style= "display:list-item">
+    <input type="number" placeholder="precio" id="idPutPrecio"style= "display:list-item">
+    <button type="button" id="submitPutProducto" >Aceptar</button>
+  </div>
+
+  <div>
+    <h1>A - Delete producto</h1>
+    <input type="number" placeholder="id" id="idDeleteProducto"style= "display:list-item">
+    <button type="button" id="deleteProducto" >Aceptar</button>
+  </div>
+
+  <div>
+    <h1>B - Add cliente</h1>
+    <input type="number" placeholder="id cliente" id= "idAddCliente"style= "display:list-item">
+    <input type="text" placeholder="nombre" id= "nombreAddCliente"style= "display:list-item" >
+    <button type="button" id="addCliente" >Aceptar</button>
+  </div>
+
+
+  <div>
+    <h1>B - Edit cliente</h1>
+    <input type="number" placeholder="id cliente" id= "idPutCliente"style= "display:list-item">
+    <input type="text" placeholder="nombre" id= "nombrePutCliente"style= "display:list-item" >
+    <button type="button" id="editCliente" >Aceptar</button>
+  </div>
+
+
+  <div>
+    <h1>B - Delete cliente</h1>
+    <input type="number" placeholder="id cliente" id= "idDeleteCliente"style= "display:list-item">
+    <button type="button" id="deleteCliente" >Aceptar</button>
+  </div>
+
+  <div>
+    <h1>B - Add compra</h1>
+    <input type="number" placeholder="id compra" id= "idAddCompra"style= "display:list-item">
+    <input type="date" placeholder="fecha" id= "fechaAddCompra"style= "display:list-item" >
+    <button type="button" id="addCompra">Aceptar</button>
+  </div>
+  <div>
+    <h1>B - Edit compra</h1>
+    <input type="number" placeholder="id compra" id= "idPutCompra"style= "display:list-item">
+    <input type="date" placeholder="fecha" id= "fechaPutCompra"style= "display:list-item" >
+    <button type="button" id="editCompra">Aceptar</button>
+  </div>
+  <div>
+    <h1>B - Delete compra</h1>
+    <input type="number" placeholder="id compra" id= "idDeleteCompra"style= "display:list-item">
+    <button type="button" id="deleteCompra">Aceptar</button>
+  </div>
+
+  <div>
+    <h1>B - Add stock</h1>
+    <input type="number" placeholder="id stock" id= "idAddStock"style= "display:list-item">
+    <input type="name" placeholder="id producto" id= "idProductoStock"style= "display:list-item" >
+    <input type="number" placeholder="cantidad" id= "idCantidadStock"style= "display:list-item" >
+    <button type="button" id="addStock">Aceptar</button>
+  </div>
+  <div>
+    <h1>B - Edit stock</h1>
+    <input type="number" placeholder="id stock" id= "idEditStock"style= "display:list-item">
+    <input type="text" placeholder="id producto" id= "idEditProducto"style= "display:list-item" >
+    <input type="number" placeholder="cantidad" id= "idEditCantidad"style= "display:list-item" >
+    <button type="button" id="EditStock">Aceptar</button>
+  </div>
+  <div>
+    <h1>B - Delete stock</h1>
+    <input type="number" placeholder="id stock" id= "idDeleteStock"style= "display:list-item">
+    <button type="button" id="deleteStock">Aceptar</button>
+  </div>
+
+  <div id="contenedor">
+    <button type="button" name="button" id="boton" >asdsad</button>
+  </div>
+
+  <div>
+          <h1>3 -Genere un reporte donde se indiquen los clientes y el monto total de sus compras.</h1>
+          <button type="button" id="getClientes" >Confirmar</button>
+          <div id="contenedorClientes">
+          </div>
+        </div>
+        <div>
+          <h1>4 -Genere un reporte con las ventas por día..</h1>
+          <button type="button" id="getComprasXDia" >Confirmar</button>
+          <div id="contenedorCompras">
+          </div>
+        </div>
+
+
+
+        <div>
+        <h1>5 -Implemente una consulta para saber cuál fue el producto más vendido.</h1>
+        <button type="button" id="getProductoMasVendido" >Confirmar</button>
+        <div id="contenedorProducto">
+        </div>
+      </div>
+
+    <div>
+      <h1>Comprar</h1>
+      <input type="number" placeholder="id cliente" id= "idAddStock"style= "display:list-item">
+      <input type="name" placeholder="fecha" id= "idProductoStock"style= "display:list-item" >
+      <input type="number" placeholder="fecha" id= "idCantidadStock"style= "display:list-item" >
+      <button type="button" id="addStock">Aceptar</button>
+    </div>
+
+
+
+          <div>
+                  <h1>Ver lista de productos</h1>
+                  <button type="button" id="verProductos" >Confirmar</button>
+                  <input type="number" placeholder="id cliente" id= "idClienteComprar"style= "display:list-item">
+                  <input type="number" placeholder="id compra" id= "idCompraComprar"style= "display:list-item">
+                  <input type="number" placeholder="id Producto" id= "idProductoComprar"style= "display:list-item">
+                  <button type="button" id="addProductoComprar">Agregar a la compra</button>
+                  <button type="button" id="finalizarProductoComprar">Finalizar compra</button>
+
+                  <div id="contenedorProductos">
+                  </div>
+                </div>
+
+</body>
+<script src="main.js" charset="utf-8"></script>
+</html>

@@ -42,19 +42,6 @@ public class CompraController {
 		return repository.findAll();
 	}
 
-	@PostMapping("/comprar/{id}")
-	public ResponseEntity newCompra(@RequestBody Compra c,@PathVariable Long id) {
-		for(Producto p: c.getProductos()) {
-			System.out.println("cantidad para producto"+ p.getNombre() + repository.ventasProducto(p.getId(),id));
-			if(repository.ventasProducto(p.getId(),id)>3)
-					return ResponseEntity.status(HttpStatus.NOT_FOUND).body("Limite de productos al dia superado");
-		}
-		repository.save(c);
-//		Cliente cliente = repository.recuperarCLiente(id);
-//		cliente.add(c);
-//		repository.save(cliente);
-		return ResponseEntity.status(HttpStatus.NOT_FOUND).body("Compra realizada");
-	}
 	
 	@PostMapping("/")
 	public Compra Comprar(@RequestBody Compra c, @PathVariable Long id) {
@@ -81,7 +68,7 @@ public class CompraController {
 		repository.deleteById(id);
 	}
 
-	@GetMapping("/getComprasPorDia")
+	@GetMapping("/reporteComprasPorDia")
 	public List<ReporteVentasPorDia> getComprasPorDia() {
 		boolean flag = false;
 		List<ReporteVentasPorDia> reportes = new ArrayList<>();

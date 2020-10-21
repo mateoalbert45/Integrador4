@@ -1,5 +1,7 @@
 package demo.controller;
 
+import java.util.Optional;
+
 import javax.transaction.Transactional;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -37,8 +39,10 @@ public class StockController  {
         return repository.findAll();
     }
     
-    @PostMapping("/add")
-    public Stock newStock(@RequestBody Stock s) {
+    @PostMapping("/add/{id}")
+    public Stock newStock(@RequestBody Stock s, @PathVariable Long id) {
+    	Producto p = repository.getProducto(id);
+    	s.add(p);
         return repository.save(s);
     }
     
@@ -58,6 +62,18 @@ public class StockController  {
 	 void deleteStock(@PathVariable Long id) {
 	        repository.deleteById(id);
 	    }
+	
+	
+	
+	 @PutMapping("/restarStock/{id}") public Stock restarStock(@PathVariable Long id) {
+		 	Optional<Stock> stock = repository.findById(id);
+		 	if(stock.get().getCantidad()>0) {
+		 		stock.get().setCantidad(stock.get().getCantidad()-1);
+		 		repository.save(stock.get());
+		 	}
+		 	return stock.get();
+	 }
  
+	
 
 }

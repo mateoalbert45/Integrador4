@@ -9,8 +9,8 @@ import demo.model.Producto;
 
 public interface ProductoRepository extends JpaRepository<Producto, Long> {
 
-	   @Query("delete FROM Stock s where s.producto = :idProducto")
-	    public void borrarStockProducto(long idProducto);
+//	   @Query("delete FROM Stock s join s.producto p where p.id =:idProducto")
+//	    public void borrarStockProducto(long idProducto);
 	   
 	   @Query("select c.productos FROM Compra c")
 	    public List<Producto> productos();

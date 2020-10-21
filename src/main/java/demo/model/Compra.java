@@ -27,7 +27,7 @@ public class Compra{
 	@Id
 	private Long id;
 	@Column
-	private Date fechaDeCompra;
+	private String fechaDeCompra;
 	@JsonIgnore
     @ManyToMany(fetch = FetchType.LAZY)
     @JoinColumn(name = "idProducto", referencedColumnName = "id")
@@ -35,7 +35,7 @@ public class Compra{
 	
 	public Compra() {}
 	
-	public Compra(Long id,Date fechaDeCompra) {
+	public Compra(Long id,String fechaDeCompra) {
 		super();
 		this.id = id;
 		this.fechaDeCompra = fechaDeCompra;
