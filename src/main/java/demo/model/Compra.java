@@ -20,6 +20,12 @@ import com.fasterxml.jackson.annotation.JsonIgnore;
 
 import lombok.Data;
 
+/**
+* Esta clase define la entidad de una compra
+* @author grupo4
+* @version Octubre 21, 2020
+*/
+
 @Entity
 @Table(name = "compra")
 @Data
@@ -33,17 +39,38 @@ public class Compra{
     @JoinColumn(name = "idProducto", referencedColumnName = "id")
 	private List<Producto> productos;
 	
+	
+	/**
+	* Constructor de la clase Compra. Inicializa compra en vacio.
+	*/
+	
 	public Compra() {}
+	
+	/**
+	* Constructor de la clase Compra. Inicializa compra con un id, una fecha de cuando se realizo y la lista de los productos de esa compra.
+	*/
 	
 	public Compra(Long id,String fechaDeCompra) {
 		super();
 		this.id = id;
 		this.fechaDeCompra = fechaDeCompra;
 		this.productos = new ArrayList<Producto>();
-	}	
+	}
+	
+	/**
+	* Metodo que agrega un producto a la compra.
+	* @param p El parametro p es el producto a agregar.
+	*/
+	
 	public void add(Producto p) {
 		productos.add(p);
 	}
+	
+	/**
+	* Metodo que compara dos productos
+	* @param obj El parametro obj es el objeto con el cual se va a comparar
+	* @return True o False.
+	*/
 
 	@Override
 	public boolean equals(Object obj) {
@@ -72,6 +99,11 @@ public class Compra{
 		return true;
 	}
 
+	/**
+	* Metodo que devuelve la informacion de un producto.
+	* @return hashCode.
+	*/
+	
 	@Override
 	public int hashCode() {
 		final int prime = 31;

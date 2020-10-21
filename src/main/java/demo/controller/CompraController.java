@@ -29,20 +29,41 @@ import demo.repository.CompraRepository;
 
 @RestController
 @RequestMapping("compra")
+
+/**
+* Esta clase administra los servicios rest de las compras
+* @author grupo4
+* @version Octubre 21, 2020
+*/
+
 public class CompraController {
 	@Qualifier("compraRepository")
 	@Autowired
 	private final CompraRepository repository;
 
+	/**
+	* Constructor de la clase CompraController. Inicializa el repository.
+	*/
+	
 	public CompraController(@Qualifier("compraRepository") CompraRepository repository) {
 		this.repository = repository;
 	}
 
+	/**
+	* Metodo que devuelve todas las compras
+	* @return Un iterable de tipo Compra.
+	*/
+	
 	@GetMapping("/getAll")
 	public Iterable<Compra> getCompras() {
 		return repository.findAll();
 	}
 
+	/**
+	* Metodo que guarda una compra realizada
+	* @param c El parametro c es la compra a guardar
+	* @return Compra.
+	*/
 	
 	@PostMapping("/")
 	public Compra Comprar(@RequestBody Compra c, @PathVariable Long id) {
@@ -59,6 +80,13 @@ public class CompraController {
 		return repository.save(c);
 	}
 
+	/**
+	* Metodo que actualiza una compra ya existente
+	* @param c El parametro c es la compra actualizada
+	* @param id El parametro id es el id de la compra a actualizar
+	* @return Compra.
+	*/
+	
 	@PutMapping("/update/{id}")
 	public Compra updateCompra(@RequestBody Compra c, @PathVariable Long id) {
 		return repository.findById(id).map(compra -> {
@@ -87,11 +115,21 @@ public class CompraController {
 	}
 	
 
+	/**
+	* Metodo que elimina una compra ya existente
+	* @param id El parametro id es el id de la compra a eliminar
+	*/
+	
 	@DeleteMapping("/delete/{id}")
 	void deleteCompra(@PathVariable Long id) {
 		repository.deleteById(id);
 	}
 
+	/**
+	* Metodo que devuelve una lista con los reportes de las compras por dia
+	* @return List de las compras por dia.
+	*/
+	
 	@GetMapping("/reporteComprasPorDia")
 	public List<ReporteVentasPorDia> getComprasPorDia() {
 		boolean flag = false;

@@ -19,6 +19,14 @@ import org.springframework.web.bind.annotation.RestController;
 import demo.model.Producto;
 import demo.repository.ProductoRepository;
 
+
+/**
+* Esta clase administra los servicios rest de los productos
+* @author grupo4
+* @version Octubre 21, 2020
+*/
+
+
 @RestController
 @RequestMapping("producto")
 public class ProductoController {
@@ -26,19 +34,39 @@ public class ProductoController {
 	@Autowired
 	private final ProductoRepository repository;
 
+	/**
+	* Constructor de la clase ProductoController. Inicializa el repository
+	*/
+	
 	public ProductoController(@Qualifier("productoRepository") ProductoRepository repository) {
 		this.repository = repository;
 	}
 
+	/**
+	* Metodo que devuelve todos los productos.
+	* @return Iterable de objetos de tipo producto
+	*/
+	
 	@GetMapping("/getAll")
 	public Iterable<Producto> getProductos() {
 		return repository.findAll();
 	}
 	
+	/**
+	* Metodo que devuelve un producto segun el id
+	* @param id El parametro id es el id del producto a devolver 
+	* @return Optional de objetos de tipo producto.
+	*/
+	
 	@GetMapping("/get/{id}")
 	public Optional<Producto> getProducto(@PathVariable Long id) {
 		return repository.findById(id);
 	}
+	
+	/**
+	* Metodo que devuelve el producto que fue mas vendido
+	* @return Producto.
+	*/
 	
 	@GetMapping("/masVendido")
 	public Producto getProductoMasVendido() {
@@ -49,10 +77,22 @@ public class ProductoController {
 		return productoMasVendido;
 	}
 	
+	/**
+	* Metodo que inserta un nuevo producto.
+	* @param p El parametro p es el nuevo producto a guardar en la base de datos.
+	* @return Producto.
+	*/
 	
 	 @PostMapping("/add") public Producto newProducto(@RequestBody Producto p) {
 	 return repository.save(p);
 	 }
+	
+	/**
+	* Metodo que actualiza un producto ya existente
+	* @param p El parametro p es el producto actualizado
+	* @param id El parametro id es el id del producto a actualizar
+	* @return Producto.
+	*/
 	 
 	 @PutMapping("/update/{id}") public Producto updateProducto(@RequestBody Producto p, @PathVariable Long id) {
 	        return repository.findById(id)
