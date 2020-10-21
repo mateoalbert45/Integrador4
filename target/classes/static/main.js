@@ -24,7 +24,7 @@ document.querySelector("#getProductoMasVendido").addEventListener("click", getPr
 document.querySelector("#verProductos").addEventListener("click", verProductos);
 
 
-document.querySelector("#addProductoComprar").addEventListener("click", addProductoComprar);
+document.querySelector("#addProductoComprar").addEventListener("click", agregarProductoACompra);
 document.querySelector("#finalizarProductoComprar").addEventListener("click", finalizarProductoComprar);
 
 
@@ -392,37 +392,96 @@ contenedor.innerHTML = JSON.stringify(json);
 }
 
 
-function finalizarProductoComprar(){
+async function finalizarProductoComprar(){
   let idCliente = document.querySelector("#idClienteComprar").value;
   let idCompra = document.querySelector("#idCompraComprar").value;
   let today = new Date();
   let date = today.getFullYear()+'-'+(today.getMonth()+1)+'-'+today.getDate();
+  let idProducto  = document.querySelector("#idProductoComprar").value;;
   let foo = [
     {"id":1,"nombre":"Cepita","precio":75.0},
     {"id":2,"nombre":"Arroz","precio":15.0}
             ];
 
-    let compra = {
-                 "id": idCompra,
-                 "fechaDeCompra": today,
-                 "productos" :    [ {
-         "id":2,
-         "nombre":"Arroz",
-         "precio":15.0
-       }]
 
-            };
-  console.log(compra);
+           let  url = "cliente/comprar/" + idCompra + "/" +idCliente;
+           fetch(url,{
+             "method": "POST",
+             "headers": {          'Content-Type': 'application/json',
+                      'Accept': 'application/json' },
+           }).then(function(r){
+             if(!r.ok){
+               console.log("Error")
+             }
+             return r.json()
+           })
+           .then(function(json) {
+             console.log("ok");
+           })
+           .catch(function(e){
+             console.log(e)
+           })
 
-  let  url = "cliente/comprar/" +idCliente;
-  fetch(url, {
-      'method': 'POST',
-       'headers': {
-         'Content-Type': 'application/json',
-         'Accept': 'application/json'
-      },
-      'body': JSON.stringify(compra)
+
+
+}
+
+
+async function agregarCompraVacia(idCompra,today){
+
+     let compra = {
+                  "id": idCompra,
+                  "fechaDeCompra": today
+                }
+
+  let url = "compra/add";
+  fetch(url,{
+    "method": "POST",
+    "headers": {          'Content-Type': 'application/json',
+             'Accept': 'application/json' },
+    "body": JSON.stringify(compra)
+  }).then(function(r){
+    if(!r.ok){
+      console.log("Error")
+    }
+    return r.json()
   })
+  .then(function(json) {
+    console.log("ok");
+  })
+  .catch(function(e){
+    console.log(e)
+  })
+
+
+}
+
+
+async function agregarProductoACompra(){
+  let idCompra = document.querySelector("#idCompraComprar").value;
+  let idProducto  = document.querySelector("#idProductoComprar").value;
+
+  let urlAgregarProductoACompra = "compra/addProducto/" + idCompra + "/" + idProducto ;
+  fetch(urlAgregarProductoACompra,{
+    "method": "PUT",
+    "headers": {          'Content-Type': 'application/json',
+             'Accept': 'application/json' }
+  }).then(function(r){
+    if(!r.ok){
+      console.log("Error")
+    }
+    return r.json()
+  })
+  .then(function(json) {
+    console.log("ok");
+  })
+  .catch(function(e){
+    console.log(e)
+  })
+
+}
+
+
 
 
 
@@ -434,4 +493,3 @@ function finalizarProductoComprar(){
   //     },
   //     'body': JSON.stringify(stock)
   // })
-}

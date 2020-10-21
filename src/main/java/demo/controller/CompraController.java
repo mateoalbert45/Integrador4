@@ -2,6 +2,7 @@ package demo.controller;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Optional;
 
 import javax.transaction.Transactional;
 
@@ -51,6 +52,12 @@ public class CompraController {
 		}
 		return repository.save(c);
 	}
+	
+	
+	@PostMapping("/add")
+	public Compra addCompra(@RequestBody Compra c) {
+		return repository.save(c);
+	}
 
 	@PutMapping("/update/{id}")
 	public Compra updateCompra(@RequestBody Compra c, @PathVariable Long id) {
@@ -62,6 +69,23 @@ public class CompraController {
 			return repository.save(c);
 		});
 	}
+	
+	@PutMapping("/addProducto/{idCompra}/{idProducto}")
+	public Compra addProducto(@PathVariable Long idCompra, @PathVariable Long idProducto) {
+		Producto p = repository.getProducto(idProducto);
+		Optional<Compra> c = repository.findById(idCompra);
+
+		return repository.findById(idCompra).map(compra -> {
+			compra.add(p);
+			return repository.save(compra);
+		}).orElseGet(() -> {
+			c.get().setId(idCompra);
+			return repository.save(c.get());
+		});
+		
+
+	}
+	
 
 	@DeleteMapping("/delete/{id}")
 	void deleteCompra(@PathVariable Long id) {

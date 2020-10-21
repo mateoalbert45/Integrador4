@@ -7,6 +7,7 @@ import org.springframework.data.jpa.repository.Query;
 
 import demo.model.Cliente;
 import demo.model.Compra;
+import demo.model.Producto;
 
 
 public interface CompraRepository extends JpaRepository<Compra, Long> {
@@ -22,4 +23,7 @@ public interface CompraRepository extends JpaRepository<Compra, Long> {
 
 	@Query("select c FROM Cliente c where c.id =:idCliente ")
 	public Cliente recuperarCLiente(Long idCliente);
+	
+	   @Query("select p FROM Producto p where p.id =:id")
+	    public Producto getProducto(Long id);
 }

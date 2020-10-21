@@ -44,6 +44,9 @@ class LoadDatabase {
 //		    	Producto p3 = new Producto(Long.valueOf("3"), "Arroz",(double) 15);
 		    	Compra c1 = new Compra(Long.valueOf("1"), "17-10-2020");
 		    	Compra c2 = new Compra(Long.valueOf("2"), "17-10-2020");
+		    	Compra c3 = new Compra(Long.valueOf("3"), "17-10-2020");
+		    	Compra c4 = new Compra(Long.valueOf("4"), "18-10-2020");
+		    	Compra c5 = new Compra(Long.valueOf("5"), "19-10-2020");
 		    	c1.add(p2);
 		    	c1.add(p2);
 		    	c2.add(p1);
@@ -63,6 +66,9 @@ class LoadDatabase {
 //            log.info("Preloading " + repositoryProducto.save(new Producto((Long) 6, "Caramelo", (double) 2)));
             log.info("Preloading " + repositoryCompra.save(c1));
             log.info("Preloading " + repositoryCompra.save(c2));
+            log.info("Preloading " + repositoryCompra.save(c3));
+            log.info("Preloading " + repositoryCompra.save(c4));
+            log.info("Preloading " + repositoryCompra.save(c5));
             log.info("Preloading " + repositoryStock.save(s1));
             log.info("Preloading " + repositoryStock.save(s2));
             log.info("Preloading " + repositoryCliente.save(cl1));

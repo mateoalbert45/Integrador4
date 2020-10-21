@@ -29,7 +29,7 @@ public class Compra{
 	@Column
 	private String fechaDeCompra;
 	@JsonIgnore
-    @ManyToMany(fetch = FetchType.LAZY)
+    @ManyToMany(cascade = CascadeType.ALL,fetch = FetchType.LAZY)
     @JoinColumn(name = "idProducto", referencedColumnName = "id")
 	private List<Producto> productos;
 	

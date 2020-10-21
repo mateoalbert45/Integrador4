@@ -80,21 +80,21 @@ public class ClienteController {
 	    }
 	    
 	    
-		@PostMapping("/comprar/{idCliente}")
-		public ResponseEntity compraCliente(@RequestBody Compra  c,@PathVariable Long idCliente) {
+		@PostMapping("/comprar/{idCompra}/{idCliente}")
+		public ResponseEntity compraCliente(@PathVariable Long  idCompra,@PathVariable Long idCliente) {
 			
-			Long idCompra = c.getId();
 			Optional<Cliente> cliente = repository.findById(idCliente);
+			Compra c = repository.getCompra(idCompra);
+			System.out.println(c.getId());
 			cliente.get().add(c);
 			repository.save(cliente.get());
-			for(Producto p: c.getProductos()) {
-				
-				
+			List<Producto> productos = repository.getProductosSegunCompra(c.getId());
+			System.out.println(productos);
+			for(Producto p: productos) {
 				System.out.println("cantidad para producto"+ p.getNombre() + repository.ventasProducto(p.getId(),c.getFechaDeCompra(),idCliente));
 				if(repository.ventasProducto(p.getId(),c.getFechaDeCompra(),idCliente)>3) {
 						cliente.get().remove(c);
 						repository.save(cliente.get());
-						//LLAMA UN DELETECOMPRA DESDE JS
 						return ResponseEntity.status(HttpStatus.NOT_FOUND).body("Limite de productos al dia superado");
 				}
 			}
