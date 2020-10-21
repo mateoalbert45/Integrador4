@@ -21,6 +21,12 @@ import demo.repository.CompraRepository;
 import demo.repository.ProductoRepository;
 import demo.repository.StockRepository;
 
+/**
+* Esta clase esta asociada a la carga de datos a la base de datos
+* @author grupo4
+* @version Octubre 21, 2020
+*/
+
 @Configuration
 @Slf4j
 class LoadDatabase {
@@ -28,7 +34,7 @@ class LoadDatabase {
 //	  private CompraRepository compraRepository;
 //	  private StockRepository stockRepository;
 
-	 	  
+	
 	@Bean
     CommandLineRunner initDatabaseProducto(
     		@Qualifier("productoRepository") ProductoRepository repositoryProducto,
